@@ -1,26 +1,10 @@
-/*
- * Copyright (C) 2015 drrb
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-package com.github.drrb.javarust;
-
-import com.sun.jna.Structure;
+package com.github.lansheng228.javarust;
 
 import java.io.Closeable;
 import java.util.Arrays;
 import java.util.List;
+
+import com.sun.jna.Structure;
 
 /**
  * A struct that contains an array of structs. This is the Java representation
@@ -36,10 +20,10 @@ public class GreetingSet extends Structure implements Closeable {
 
     /**
      * An array of Greetings returned from Rust.
-     * 
+     *
      * Actually, this is a pointer to a bunch of struct instances that are next
      * to each other in memory. We cast it to an array in {@link #getGreetings()}.
-     * 
+     *
      * NB: We need to explicitly specify that the field is a pointer (i.e. we need
      * to use ByReference) because, by default, JNA assumes that struct fields 
      * are not pointers (i.e. if you just say "Greeting", JNA assumes
@@ -48,7 +32,7 @@ public class GreetingSet extends Structure implements Closeable {
     public Greeting.ByReference greetings;
     /**
      * The size of the array from Rust.
-     * 
+     *
      * Because we don't have any way to tell how long the array is, we've got to
      * return the length back separately. The reason we don't have to do this with
      * strings passed back from Rust (which are actually arrays of characters) 
@@ -59,7 +43,7 @@ public class GreetingSet extends Structure implements Closeable {
 
     /**
      * Get the greetings this struct's pointer is pointing to.
-     * 
+     *
      * Here we cast the native array into a Java list to make it more convenient
      * to work with in Java.
      */
@@ -70,7 +54,7 @@ public class GreetingSet extends Structure implements Closeable {
 
     /**
      * Specify the order of the struct's fields.
-     * 
+     *
      * The order here needs to match the order of the fields in the Rust code.
      * The astute will notice that the field names only match the field names in the
      * Java class, but not the equivalent Rust struct (the Rust one's are in 

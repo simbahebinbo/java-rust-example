@@ -4,36 +4,79 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.drrb.rustjava</groupId>
+    <groupId>com.github.lansheng228.rustjava</groupId>
     <artifactId>java-rust-example</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <name>Java Rust Example</name>
     <description>Example of calling a Rust library from Java</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>1.8</java.version>
+
+        <jna.version>5.8.0</jna.version>
+        <junit.jupiter.version>5.7.1</junit.jupiter.version>
+        <hamcrest.version>1.3</hamcrest.version>
+        <lombok.version>1.18.16</lombok.version>
+        <slf4j.version>1.7.30</slf4j.version>
+
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <build-helper-maven-plugin.version>3.2.0</build-helper-maven-plugin.version>
+        <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
+        <maven-assembly-plugin.verson>3.3.0</maven-assembly-plugin.verson>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
         <!-- JNI Helper -->
         <dependency>
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna</artifactId>
-            <version>4.0.0</version>
+            <version>${jna.version}</version>
         </dependency>
 
         <!-- Test Dependencies -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
-            <version>1.3</version>
+            <version>${hamcrest.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -45,17 +88,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.18.1</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <!-- Don't try to load JNA from the host system, use our dependency instead (needed for Appveyor, which has an old JNA on it) -->
                     <argLine>-Djna.nosys=true</argLine>
@@ -64,11 +107,13 @@
                 </configuration>
             </plugin>
 
+
+
             <!-- Compile and use our build addon that compiles the Rust code -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.9.1</version>
+                <version>${build-helper-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>compile-build-addon</id>
@@ -89,13 +134,13 @@
             Compile the Rust crate
 
             The resulting library will end up on the classpath in the appropriate
-            format for the current system. See com.github.drrb.javarust.CompileRustCrates
+            format for the current system. See com.github.lansheng228.javarust.build.CompileRustCrates
             for details.
             -->
             <plugin>
-                <artifactId>exec-maven-plugin</artifactId>
                 <groupId>org.codehaus.mojo</groupId>
-                <version>1.2.1</version>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>compile-rust-crates</id>
@@ -104,7 +149,7 @@
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.github.drrb.javarust.build.CompileRustCrates</mainClass>
+                            <mainClass>com.github.lansheng228.javarust.build.CompileRustCrates</mainClass>
                         </configuration>
                     </execution>
                 </executions>
@@ -116,7 +161,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.5.3</version>
+                <version>${maven-assembly-plugin.verson}</version>
                 <configuration>
                     <appendAssemblyId>false</appendAssemblyId>
                     <descriptorRefs>
@@ -124,7 +169,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.github.drrb.javarust.Main</mainClass>
+                            <mainClass>com.github.lansheng228.javarust.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

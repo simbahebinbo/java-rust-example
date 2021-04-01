@@ -6,7 +6,7 @@ use std::str;
 use std::mem;
 use std::os::raw::c_char;
 
-// GreetingSet corresponds to com.github.drrb.javarust.GreetingSet in Java. It is marked with
+// GreetingSet corresponds to com.github.lansheng228.javarust.GreetingSet in Java. It is marked with
 // repr(c), as are all the structs passed back to Java. This makes sure the structs are represented
 // in memory in a way JNA can read them.
 #[repr(C)]
@@ -23,7 +23,7 @@ impl Drop for GreetingSet {
     }
 }
 
-// Greeting corresponds to com.github.drrb.javarust.Greeting in Java. It is marked with
+// Greeting corresponds to com.github.lansheng228.javarust.Greeting in Java. It is marked with
 // allow(missing_copy_implementations) to suppress compiler warnings encouraging us to 
 // implement the Copy trait.
 #[repr(C)]

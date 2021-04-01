@@ -1,24 +1,7 @@
-/*
- * Copyright (C) 2015 drrb
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-package com.github.drrb.javarust.build;
+package com.github.lansheng228.javarust.build;
 
 import java.io.File;
 import java.io.IOException;
-import static java.nio.charset.StandardCharsets.UTF_8;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
 import java.nio.file.Files;
@@ -26,12 +9,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
-import static java.util.Arrays.asList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.Arrays.asList;
 
 /**
  *
@@ -159,8 +144,8 @@ public class CompileRustCrates {
     private static boolean isCrate(Path path) {
         try {
             return path.toFile().isFile()
-                    && path.toString().endsWith(".rs")
-                    && new String(Files.readAllBytes(path), UTF_8).contains("#![crate_type");
+                && path.toString().endsWith(".rs")
+                && new String(Files.readAllBytes(path), UTF_8).contains("#![crate_type");
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
