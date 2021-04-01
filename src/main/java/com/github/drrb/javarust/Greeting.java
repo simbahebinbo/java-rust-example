@@ -16,12 +16,11 @@
  */
 package com.github.drrb.javarust;
 
-import com.sun.jna.Structure;
-
 import java.io.Closeable;
+import java.util.Arrays;
 import java.util.List;
 
-import static java.util.Arrays.asList;
+import com.sun.jna.Structure;
 
 /**
  * A struct that we return from Rust to Java.
@@ -44,7 +43,7 @@ public class Greeting extends Structure implements Closeable {
 
     @Override
     protected List<String> getFieldOrder() {
-        return asList("text");
+        return Arrays.asList("text");
     }
 
     @Override

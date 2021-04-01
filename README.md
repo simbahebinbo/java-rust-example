@@ -2,14 +2,11 @@
 
 An example project showing how to call into Rust code from Java.
 
-| OSX | Linux | Windows |
-| --- | ----- | ------- |
-| ![OSX Build Status](https://img.shields.io/badge/build-passing%20on%20my%20laptop-brightgreen.svg) | [![Linux Build Status](https://travis-ci.org/drrb/java-rust-example.svg?branch=master)](https://travis-ci.org/drrb/java-rust-example) | [![Windows Build status](https://ci.appveyor.com/api/projects/status/4yygb3925k7p87de/branch/master?svg=true)](https://ci.appveyor.com/project/drrb/java-rust-example/branch/master) |
 
 ## Requirements
 
-- Java 7+
-- Rust (tested with 1.0, nightly)
+- Java 8+
+- Rust (tested with rustc 1.50.0 (cb75ad5db 2021-02-10))
 
 ## Contents
 
@@ -43,7 +40,7 @@ containing the Rust code and the Java code. This assumes you have Rust
 installed, and on the path.
 
 ```
-$ mvn package
+$ mvn clean package
 ```
 
 You can then run the jar that is produced to see the integration work.
@@ -55,26 +52,8 @@ Hello from Rust, John
 
 ## Platform Support
 
-This project is tested on OSX, Ubuntu, and Windows. It should also work on any 32 bit or 64 bit Gnu/Linux system.
+This project is tested on OSX and Ubuntu. It should also work on any 32 bit or 64 bit Gnu/Linux system.
 
 ## Limitations
 
 Some of the examples leak memory. Any memory that is allocated in Rust needs to be freed manually because it's not managed by JNA. Some examples pass objects back into Rust to be dropped for this reason, but we don't clean up everything properly (strings, for example). This is almost certainly not a limitation of Rust, but a limitation of my current understanding of Rust.
-
-## License
-
-Java/Rust Example
-Copyright (C) 2015 drrb
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.

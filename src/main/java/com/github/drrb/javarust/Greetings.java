@@ -24,13 +24,13 @@ import com.sun.jna.NativeLibrary;
 public interface Greetings extends Library {
     String JNA_LIBRARY_NAME = "greetings";
     NativeLibrary JNA_NATIVE_LIB = NativeLibrary.getInstance(JNA_LIBRARY_NAME);
-    
+
     /**
      * JNA will load this library (a Rust crate) from the classpath.
      *
      * The location differs per platform.
      * E.g. on OSX, the library needs to be in /darwin/libgreetings.dylib
-     * 
+     *
      * In this project, the crate source lives in 
      * src/main/rust/com/github/drrb/javarust/lib/greetings.rs . During the build,
      * Maven will run scripts/rust-compile.sh, which will compile the crate and
@@ -55,7 +55,7 @@ public interface Greetings extends Library {
 
     /**
      * Getting a pointer to a struct from Rust.
-     * 
+     *
      * This is the same as returning a {@link Greeting.ByReference}. JNA assumes
      * it's by reference when it's returned from a native function.
      */
@@ -63,7 +63,7 @@ public interface Greetings extends Library {
 
     /**
      * Getting a struct back from Rust.
-     * 
+     *
      * NB: we must specify that this is not a pointer (i.e. return an instance of
      * Greeting.ByValue instead of just Greeting) because JNA assumes that return
      * values that are structs are pointers unless we say otherwise.
@@ -72,7 +72,7 @@ public interface Greetings extends Library {
 
     /**
      * Getting a pointer to a struct that contains an array of structs.
-     * 
+     *
      * This is the same as returning a {@link GreetingSet.ByReference}. JNA assumes
      * it's by reference when it's returned from a native function.
      */

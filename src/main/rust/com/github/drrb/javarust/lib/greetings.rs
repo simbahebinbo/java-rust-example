@@ -1,20 +1,3 @@
-/*
- * Copyright (C) 2015 drrb
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 // Create a library, not an executable binary
 #![crate_type = "dylib"]
 
@@ -60,6 +43,7 @@ impl Greeting {
 
 impl Drop for Greeting {
     fn drop(&mut self) {
+        // Print a message when we drop the object, so that we know we're not leaking memory
         println!("Dropping Greeting: {}", to_string(self.text));
     }
 }
@@ -131,15 +115,6 @@ pub extern fn callMeBack(callback: extern "C" fn(*const c_char)) { // The functi
     callback(to_ptr("Hello there!".to_string()));
 }
 
-/// Example of passing a callback (Windows version)
-/// Note that the callback version is marked as "stdcall", because that is the calling convention
-/// Windows uses.
-#[no_mangle]
-#[cfg(windows)]
-#[allow(non_snake_case)]
-pub extern fn callMeBack(callback: extern "stdcall" fn(*const c_char)) {
-    callback(to_ptr("Hello there!".to_string()));
-}
 
 /// More complicated callback example
 /// In this example we send a pointer to a struct back to Java via the callback.
@@ -149,8 +124,8 @@ pub extern fn sendGreetings(callback: extern "C" fn(&GreetingSet)) {
     let greetings = vec![ Greeting::new("Hello!"), Greeting::new("Hello again!") ];
 
     let set = GreetingSet {
-      // Get a pointer to the vector as an array, so that we can pass it back to Java
-      greetings: greetings.into_boxed_slice()
+        // Get a pointer to the vector as an array, so that we can pass it back to Java
+        greetings: greetings.into_boxed_slice()
     };
     callback(&set); // Let the callback "borrow" the set. Rust will destroy it after calling the callback
 }
