@@ -88,7 +88,7 @@ public class CompileRustCrates {
     }
 
     private static String osArchName() {
-        return Os.getCurrent().jnaArchString();
+        return OS.getCurrent().jnaArchString();
     }
 
     private static List<Path> crates() throws IOException {
@@ -179,7 +179,7 @@ public class CompileRustCrates {
         }
     }
 
-    private enum Os {
+    private enum OS {
         MAC_OS("mac", "darwin") {
             @Override
             public String jnaArchString() {
@@ -214,14 +214,14 @@ public class CompileRustCrates {
         };
         private final String[] substrings;
 
-        private Os(String... substrings) {
+        private OS(String... substrings) {
             this.substrings = substrings;
         }
 
         public abstract String jnaArchString();
 
-        public static Os getCurrent() {
-            for (Os os : values()) {
+        public static OS getCurrent() {
+            for (OS os : values()) {
                 if (os.isCurrent()) {
                     return os;
                 }
