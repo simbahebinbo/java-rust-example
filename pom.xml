@@ -28,7 +28,7 @@
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <build-helper-maven-plugin.version>3.2.0</build-helper-maven-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
-        <maven-assembly-plugin.verson>3.3.0</maven-assembly-plugin.verson>
+        <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
     </properties>
 
     <dependencies>
@@ -161,7 +161,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>${maven-assembly-plugin.verson}</version>
+                <version>${maven-assembly-plugin.version}</version>
                 <configuration>
                     <appendAssemblyId>false</appendAssemblyId>
                     <descriptorRefs>
