@@ -19,6 +19,13 @@ public class GreetingsTest {
     }
 
     @Test
+    public void setValue() {
+        Greeting greeting = new Greeting();
+        greeting.setText("world");
+        System.out.println(greeting.getText());
+    }
+
+    @Test
     public void shouldAcceptStringParameterFromJavaToRust() {
         //Printed in the console
         library.printGreeting("World");
@@ -43,14 +50,14 @@ public class GreetingsTest {
     public void shouldGetAStructFromRustByValue() {
         // Using try-with-resources so that memory gets cleaned up. See Greeting.close()
         try (Greeting greeting = library.getGreetingByValue()) {
-            assertThat(greeting.text, is("Hello from Rust!"));
+            assertThat(greeting.getText(), is("Hello from Rust!"));
         }
     }
 
     @Test
     public void shouldGetAStructFromRustByReference() {
         try (Greeting greeting = library.getGreetingByReference()) {
-            assertThat(greeting.text, is("Hello from Rust!"));
+            assertThat(greeting.getText(), is("Hello from Rust!"));
         }
     }
 

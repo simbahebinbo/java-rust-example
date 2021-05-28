@@ -19,10 +19,22 @@ public class Greeting extends Structure implements Closeable {
     public static class ByValue extends Greeting implements Structure.ByValue {
     }
 
+    public Greeting() {
+
+    }
+
+    public Greeting(String text) {
+        this.text = text;
+    }
+
     public String text;
 
     public String getText() {
         return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     @Override
